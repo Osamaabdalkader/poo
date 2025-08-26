@@ -523,6 +523,100 @@ footer {
     margin: 0 auto;
 }
 
+/* صفحة تفاصيل المنتج */
+.product-details {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.product-image-container {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    border-radius: var(--border-radius);
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-info {
+    padding: 10px;
+}
+
+.product-info h1 {
+    color: var(--dark-color);
+    margin-bottom: 15px;
+    font-size: 1.8rem;
+}
+
+.product-description {
+    color: var(--gray-color);
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+}
+
+.product-meta {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: var(--light-gray);
+    border-radius: var(--border-radius);
+}
+
+.meta-item i {
+    margin-left: 10px;
+    color: var(--primary-color);
+    width: 20px;
+}
+
+.buy-now-btn {
+    background-color: var(--success-color);
+    font-size: 1.2rem;
+    padding: 15px;
+    margin-top: 10px;
+}
+
+.buy-now-btn:hover {
+    background-color: #3d8b40;
+}
+
+@media (min-width: 768px) {
+    .product-details {
+        flex-direction: row;
+    }
+    
+    .product-image-container {
+        width: 40%;
+        height: 400px;
+    }
+    
+    .product-info {
+        width: 60%;
+        padding: 0 20px;
+    }
+    
+    .product-meta {
+        grid-template-columns: 1fr 1fr;
+    }
+} 
+
 /* صفحة الرسائل */
 #messages-page .container {
     max-width: 800px;
