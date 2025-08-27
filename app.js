@@ -84,19 +84,6 @@ const imagePreview = document.getElementById('image-preview');
 const previewImg = document.getElementById('preview-img');
 const removeImageBtn = document.getElementById('remove-image-btn');
 
-// عناصر صفحة تفاصيل المنتج
-const productDetailsPage = document.getElementById('product-details-page');
-const closeProductDetailsBtn = document.getElementById('close-product-details');
-const productDetailImage = document.getElementById('product-detail-image');
-const productDetailTitle = document.getElementById('product-detail-title');
-const productDetailDescription = document.getElementById('product-detail-description');
-const productDetailPrice = document.getElementById('product-detail-price');
-const productDetailLocation = document.getElementById('product-detail-location');
-const productDetailAuthor = document.getElementById('product-detail-author');
-const productDetailPhone = document.getElementById('product-detail-phone');
-const productDetailDate = document.getElementById('product-detail-date');
-const buyNowBtn = document.getElementById('buy-now-btn');
-
 // عناصر نظام الرسائل
 const messagesList = document.getElementById('messages-list');
 const newMessageBtn = document.getElementById('new-message-btn');
@@ -138,57 +125,10 @@ function loadPosts() {
     });
 }
 
-
-// إغلاق صفحة تفاصيل المنتج
-closeProductDetailsBtn.addEventListener('click', () => {
-    showPage(homePage);
-});
-
-// فتح صفحة تفاصيل المنتج
-function openProductDetails(post) {
-    // تعبئة البيانات
-    if (post.imageUrl) {
-        productDetailImage.src = post.imageUrl;
-        productDetailImage.style.display = 'block';
-    } else {
-        productDetailImage.style.display = 'none';
-    }
-    
-    productDetailTitle.textContent = post.title;
-    productDetailDescription.textContent = post.description;
-    productDetailPrice.textContent = post.price ? post.price : 'غير محدد';
-    productDetailLocation.textContent = post.location;
-    productDetailAuthor.textContent = post.authorName;
-    productDetailPhone.textContent = post.phone;
-    
-    // تنسيق التاريخ
-    if (post.timestamp) {
-        const date = new Date(post.timestamp);
-        productDetailDate.textContent = date.toLocaleDateString('ar-EG', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
-    } else {
-        productDetailDate.textContent = 'غير محدد';
-    }
-    
-    // إضافة مستمع حدث لزر الشراء
-    buyNowBtn.onclick = function() {
-        alert(`شكراً لاهتمامك بمنتج: ${post.title}\nسيتم التواصل مع البائع: ${post.authorName} على الرقم: ${post.phone}`);
-    };
-    
-    // عرض الصفحة
-    showPage(productDetailsPage);
-}
-
-
-
-// تعديل دالة إنشاء بطاقة المنشور لجعلها قابلة للنقر
-function createPostCard(post, postId) {
+// إنشاء بطاقة منشور
+function createPostCard(post) {
     const postCard = document.createElement('div');
     postCard.className = 'post-card';
-    postCard.setAttribute('data-post-id', postId);
     
     // إذا كان هناك صورة، نعرضها. وإلا نعرض أيقونة افتراضية.
     const imageContent = post.imageUrl 
@@ -211,29 +151,8 @@ function createPostCard(post, postId) {
         </div>
     `;
     
-    // جعل البطاقة قابلة للنقر لفتح التفاصيل
-    postCard.addEventListener('click', () => {
-        openProductDetails(post);
-    });
-    
     postsContainer.appendChild(postCard);
 }
-
-// تعديل دالة تحميل المنشورات لتمرير postId
-function loadPosts() {
-    const postsRef = ref(database, 'posts');
-    onValue(postsRef, (snapshot) => {
-        postsContainer.innerHTML = '';
-        
-        if (snapshot.exists()) {
-            const posts = snapshot.val();
-            Object.keys(posts).reverse().forEach(postId => {
-                const post = posts[postId];
-                createPostCard(post, postId);
-            });
-        } else {
-            postsContainer.innerHTML = '<p class="no-posts">لا توجد منشورات بعد. كن أول من ينشر!</p>';
-        }
 
 // تسجيل الدخول
 loginBtn.addEventListener('click', e => {
@@ -866,4 +785,4 @@ function resetAuthForms() {
     document.getElementById('signup-address').value = '';
     authMessage.textContent = '';
     authMessage.className = '';
-  }
+}
